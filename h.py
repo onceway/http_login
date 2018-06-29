@@ -117,8 +117,8 @@ def workingday(confile) :
 def regnize_code(cookie, suffix):
 	jfif_file = ocr_tmp + 'code_' + suffix + '.jfif'
 	tif_file = ocr_tmp + 'code_' + suffix + '.tif'
-	txt_name = 'code_' + suffix
-	txt_file = ocr_tmp + txt_name + '.txt'
+	txt_name = ocr_tmp + 'code_' + suffix
+	txt_file = txt_name + '.txt'
 	try:
 		opener=urllib2.build_opener(urllib2.HTTPCookieProcessor(cookie))
 		u=opener.open(url_code)
