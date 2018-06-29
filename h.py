@@ -46,6 +46,7 @@ username = 'Y2FvLnlu'
 password = 'WUlOSUAyMDE4MDEyMA=='
 # ocr app
 ocr_app = '/home/wangy/.tesseract/bin/tesseract'                # ocr识别app
+ocr_tmp = '/home/wangy/python/http/'                            # ocr临时文件目录
 # time settings
 timeout = 5                                                     # socket超时时间
 retry_tm = 20                                                   # 操作重试等待时间
@@ -114,9 +115,10 @@ def workingday(confile) :
 
 # code regnized
 def regnize_code(cookie, suffix):
-	jfif_file = 'code_' + suffix + '.jfif'
-	tif_file = 'code_' + suffix + '.tif'
-	txt_file = 'code_' + suffix
+	jfif_file = ocr_tmp + 'code_' + suffix + '.jfif'
+	tif_file = ocr_tmp + 'code_' + suffix + '.tif'
+	txt_name = 'code_' + suffix
+	txt_file = ocr_tmp + txt_name + '.txt'
 	try:
 		opener=urllib2.build_opener(urllib2.HTTPCookieProcessor(cookie))
 		u=opener.open(url_code)
@@ -132,16 +134,16 @@ def regnize_code(cookie, suffix):
 	im = Image.open(jfif_file)
 	im = im.convert('L')
 	im.save(tif_file)
-	os.system(ocr_app + ' ' + tif_file + ' ' + txt_file + ' -l num')
-	code_file = open(txt_file + ".txt", "r")
+	os.system(ocr_app + ' ' + tif_file + ' ' + txt_name + ' -l num')
+	code_file = open(txt_file, "r")
 	code = code_file.read().replace(' ','').replace('\n', '')
 	code_file.close()
 	if os.path.exists(jfif_file):
 		os.remove(jfif_file)
 	if os.path.exists(tif_file):
 		os.remove(tif_file)
-	if os.path.exists(txt_file + '.txt'):
-		os.remove(txt_file + '.txt')
+	if os.path.exists(txt_file):
+		os.remove(txt_file)
 	return code
 
 # Encode and print password
