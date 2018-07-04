@@ -31,7 +31,11 @@ import os, sys, platform
 import string, time, socket, random
 import urllib, urllib2, cookielib, smtplib
 import base64
-import Image
+try:
+	import Image
+except ImportError:
+	import PIL.Image as Image
+
 
 # url settings
 url_base = 'http://192.168.2.53'                                # 用于计算登陆验证页面地址
