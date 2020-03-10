@@ -47,10 +47,10 @@ url_record = 'http://192.168.2.53/record.jsp'                   # Record页面
 # user settings
 yourname = ''
 username = ''
-password = ''
+password = 'NHJmdiRSRlY='
 # ocr app
 ocr_app = 'tesseract'                                           # ocr识别app
-ocr_tmp = '/tmp'                                                # ocr临时文件目录
+ocr_tmp = '/tmp/'                                               # ocr临时文件目录
 # time settings
 timeout = 5                                                     # socket超时时间
 retry_tm = 20                                                   # 操作重试等待时间
@@ -178,6 +178,9 @@ if __name__ == '__main__':
         dc_yourname = base64.b64decode(yourname);
         dc_username = base64.b64decode(username);
         dc_password = base64.b64decode(password);
+
+	print dc_password
+	sys.exit(0)
 
         if debug_on :
                 uselog = 0
